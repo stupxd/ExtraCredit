@@ -2985,8 +2985,9 @@ SMODS.Back{ --Echo Deck
     name = 'Echo Deck',      
     text = {
       "{C:attention}Retrigger{} all playing cards",
-      "{C:red}X1.2{} base Blind size",
-      "Increases by {C:red}X0.2{} each Ante"
+      "All prices are {C:attention}doubled",
+      --"{C:red}X1.2{} base Blind size",
+      --"Increases by {C:red}X0.2{} each Ante"
     } 
   }, 
     order = 18,
@@ -2999,7 +3000,10 @@ SMODS.Back{ --Echo Deck
 	pos = { x = 2, y = 0 },
 	atlas = "ECother",
   apply = function(self, back)
-    G.GAME.starting_params.ante_scaling = 1.2
+    -- cost_multiplier patched manually into Card:set_cost()
+    -- Would be nice to have in smods at some point Ig
+    G.GAME.starting_params.cost_multiplier = 2
+    --G.GAME.starting_params.ante_scaling = 1.2
   end,
 
   calculate = function(self, back, context)
@@ -3020,8 +3024,10 @@ SMODS.Back{ --Echo Deck
         end
     end
     
-    if context.end_of_round and not context.repetition and not context.individual and G.GAME.blind.boss then
-        G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling + 0.2
-    end
+    --if context.end_of_round and not context.repetition and not context.individual and G.GAME.blind.boss then
+    --    G.GAME.starting_params.ante_scaling = G.GAME.starting_params.ante_scaling + 0.2
+    --end
   end
 }
+
+

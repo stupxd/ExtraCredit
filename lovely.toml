@@ -21,6 +21,18 @@ bonus_chips = (self.ability.bonus + (self.ability.perma_bonus or 0)) ~= 0 and (s
 '''
 
 
+# Card:set_cost() patch for item cost multiplier
+[[patches]]
+[patches.pattern]
+target = 'card.lua'
+pattern = '''
+if self.ability.rental then self.cost = 1 end
+'''
+position = 'after'
+match_indent = true
+payload = '''
+if G.GAME.starting_params.cost_multiplier then self.cost = self.cost * G.GAME.starting_params.cost_multiplier end
+'''
 
 
 #Burglar instant for Bobby compat
